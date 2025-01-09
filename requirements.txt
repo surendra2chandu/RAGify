@@ -3,3 +3,5 @@ transformers
 psycopg2
 torch
 numpy
+streamlit
+sklearn
