@@ -35,6 +35,7 @@ class DataInjector:
 
 # Run the script
 if __name__ == "__main__":
+
     sample_pdf_path = r'C:\Docs\doc5.pdf'
 
     sample_db_config = {
