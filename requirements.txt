@@ -1,0 +1,5 @@
+PyPDF2
+transformers
+psycopg2
+torch
+numpy
