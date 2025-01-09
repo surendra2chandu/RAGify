@@ -8,3 +8,12 @@ logger = logging.getLogger()
 
 # Give the model path for MiniLM-L6-v2
 model_path = r"C:\llm\MiniLM-L6-v2"
+
+# Define the database configuration
+db_config = {
+        "dbname": "langchain",
+        "user": "langchain",
+        "password": "langchain",
+        "host": "localhost",
+        "port": 5432,
+    }

@@ -1,55 +1,16 @@
 # Importing required libraries
-from transformers import AutoTokenizer, AutoModel
-import torch
-from src.conf.Configurations import logger, model_path
+from src.conf.Configurations import logger
+from src.utilities.EmbeddingUtility import EmbeddingUtility
 
 
 class LateChunking:
     def __init__(self):
         """
-        This function initializes the LateChunking class with the specified model path.
+        This function initializes the LateChunking class.
         """
 
-        # Set the model name
-        self.model_name = model_path
-
-        # Load the tokenizer
-        logger.info(f"Loading tokenizer from {self.model_name}...")
-        self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
-
-        # Load the model
-        logger.info(f"Loading model from {self.model_name}...")
-        self.model = AutoModel.from_pretrained(self.model_name)
-
-    # Function to tokenize and generate embeddings
-    def tokenize_and_embed(self, text, chunk_size=50):
-        """
-        This function tokenizes the text and generates embeddings.
-        :param text: The text to tokenize.
-        :param chunk_size: The chunk size.
-        :return: The tokens and embeddings.
-        """
-
-        # Tokenize the text
-        logger.info("Tokenizing the text...")
-        inputs = self.tokenizer(text, return_tensors="pt", truncation=True, padding=True)
-
-        # Generate embeddings
-        with torch.no_grad():
-            # Get the response from the model
-            logger.info("Generating embeddings...")
-            outputs = self.model(**inputs)
-
-            # Get the embeddings from the response
-            logger.info("Getting embeddings...")
-            embeddings = outputs.last_hidden_state
-
-        # Get the tokens
-        logger.info("Converting input ids to tokens...")
-        tokens = self.tokenizer.convert_ids_to_tokens(inputs["input_ids"][0])
-
-        # Return the tokens and embeddings
-        return tokens, embeddings[0]
+        # Get the tokenizer
+        self.tokenizer = EmbeddingUtility().get_tokenizer()
 
     # Late chunking function
     def late_chunk(self, tokens, embeddings, chunk_size=50):
