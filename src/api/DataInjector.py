@@ -1,4 +1,4 @@
-import psycopg2
+# Importing the required libraries
 from src.utilities.PDFDataExtractor import PDFDataExtractor
 from src.utilities.LateChunking import LateChunking
 from src.conf.Configurations import logger
