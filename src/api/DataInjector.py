@@ -13,7 +13,6 @@ class DataInjector:
         """
         This function processes a PDF file and stores the chunks in the database.
         :param pdf_path: The path to the PDF file.
-        :param db_config: The database configuration.
         :return: None
         """
 

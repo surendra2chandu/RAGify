@@ -28,6 +28,6 @@ class PDFDataExtractor:
 
 if __name__ == '__main__':
     pdf_data_extractor = PDFDataExtractor()
-    pdf_path = r'C:\Docs\doc5.pdf'
-    extracted_text = pdf_data_extractor.extract_text_from_pdf(pdf_path)
+    sample_pdf_path = r'C:\Docs\doc5.pdf'
+    extracted_text = pdf_data_extractor.extract_text_from_pdf(sample_pdf_path)
     print(extracted_text)
