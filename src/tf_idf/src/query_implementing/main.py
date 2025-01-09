@@ -1,5 +1,5 @@
-from web_scraping.tf_idf.src.Data_files.corpus import documents
-from web_scraping.tf_idf.src.query_implementing.query_vectorizer import DocumentSimilarity
+from src.tf_idf.src.Data_files.corpus import documents
+from src.tf_idf.src.query_implementing.query_vectorizer import DocumentSimilarity
 
 #main function
 if __name__ == "__main__":
