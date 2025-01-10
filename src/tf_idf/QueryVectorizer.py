@@ -6,7 +6,7 @@ import numpy as np
 # Set up logging configuration
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-class DocumentSimilarity:
+class QueryVectorizer:
     def __init__(self, corpus):
         """
         Initializes the DocumentSimilarity class.
@@ -52,7 +52,7 @@ if __name__ == "__main__":
     ]
 
     # Initialize the DocumentSimilarity class
-    document_similarity = DocumentSimilarity(documents)
+    document_similarity = QueryVectorizer(documents)
 
     #top2_documents function is called
     document_similarity.top2_documents(sample)

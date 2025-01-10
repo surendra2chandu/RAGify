@@ -1,4 +1,4 @@
-#import
+#import streamlit
 import streamlit as st
 
 # Define a simple chatbot class
@@ -8,7 +8,7 @@ class Chatbot:
 
     self.responses = {
         "hello": "Hi there! How can I assist you today?",
-        "how are you ": "I am good, thanks for asking!",
+        "how are you": "I am good, thanks for asking!",
         "bye": "Goodbye! Have a great day!",
     }
 
