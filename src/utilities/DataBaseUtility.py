@@ -32,24 +32,23 @@ class DataBaseUtility:
         logger.info("Dropping the table if it exists...")
         self.cursor.execute("DROP TABLE IF EXISTS document_chunks;")
 
-        # Create the table if it doesn't exist
+        # Create the table if it doesn't exist (Using pgvector's vector type for embeddings)
         self.cursor.execute("""
-            CREATE TABLE IF NOT EXISTS document_chunks (
-                id SERIAL PRIMARY KEY,
-                chunk TEXT,
-                embedding FLOAT8[]  -- Array of floats for embeddings
-            );
-        """)
+                    CREATE TABLE IF NOT EXISTS document_chunks (
+                        id SERIAL PRIMARY KEY,
+                        chunk TEXT,
+                        embedding vector  
+                    );
+                """)
 
         # Insert the data
-        logger.info("Inserting data into the database...")
         for chunk_text, chunk_embedding in chunks:
             chunk_embedding_list = chunk_embedding.astype(float).tolist()  # Convert numpy array to list of floats
 
             self.cursor.execute(
                 """
                 INSERT INTO document_chunks (chunk, embedding)
-                VALUES (%s, %s)
+                VALUES (%s, %s::vector)  -- Cast the embedding to the vector type
                 """,
                 (chunk_text, chunk_embedding_list),
             )

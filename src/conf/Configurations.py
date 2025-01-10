@@ -6,6 +6,9 @@ logging.basicConfig(level=logging.INFO)
 # Get the logger
 logger = logging.getLogger()
 
+# Define the chunk size
+CHUNK_SIZE = 128
+
 # Give the model path for MiniLM-L6-v2
 model_path = r"C:\llm\MiniLM-L6-v2"
 
