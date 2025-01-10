@@ -17,7 +17,7 @@ class GetTokenEmbeddings:
         self.model = EmbeddingUtility().get_model()
 
     # Function to tokenize and generate embeddings
-    def tokenize_and_embed(self, text, chunk_size=50):
+    def tokenize_and_embed(self, text):
         """
         This function tokenizes the text and generates embeddings.
         :param text: The text to tokenize.

@@ -62,3 +62,35 @@ class DataBaseUtility:
         self.cursor.close()
         self.conn.close()
 
+
+    def fetch_similar_text(self, query_embedding):
+        """
+        This function retrieves all matches for the query sorted by similarity in descending order.
+        :param query_embedding: The embedding of the query.
+        :return: The results sorted by similarity in descending order.
+        """
+
+
+        # Retrieve all matches sorted by similarity in descending order
+        logger.info("Retrieving all matches for the query...")
+        self.cursor.execute(
+            """
+            SELECT chunk, 1 - (embedding <=> %s::vector) AS similarity
+            FROM document_chunks
+            ORDER BY similarity DESC;
+            """,
+            (query_embedding.tolist(),)
+        )
+
+        # Fetch the results
+        logger.info("Fetching the results...")
+        results = self.cursor.fetchall()
+
+        # Close the cursor and connection
+        logger.info("Closing the cursor and connection...")
+        self.cursor.close()
+        self.conn.close()
+
+        # Return the results
+        return results
+
