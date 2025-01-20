@@ -66,5 +66,5 @@ def main():
         st.write("No messages yet. Start chatting!")
 
 # Main function
-if __name__ == "__main__":
+if __name__ == "__main__" :
     main()
