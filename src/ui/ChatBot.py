@@ -65,6 +65,7 @@ def main():
         # Message displayed if chat history is empty
         st.write("No messages yet. Start chatting!")
 
+
 # Main function
 if __name__ == "__main__" :
     main()
