@@ -1,17 +1,19 @@
-import logging
+
+# Importing necessary classes,libraries and modules
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
+from src.conf.Configurations import logger
+
 
 # Set up logging configuration
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-
 class QueryVectorizer:
     def __init__(self, corpus):
         """
         Initializes the DocumentSimilarity class.
         :param corpus: The list of documents in the corpus.
         """
+
         self.corpus = corpus
         self.vectorizer = TfidfVectorizer()
         self.tfidf_matrix = self.vectorizer.fit_transform(corpus)
@@ -34,9 +36,17 @@ class QueryVectorizer:
         top_2_query = np.argsort(cosine_similarities)[-2:][::-1]
 
         # Log the top 2 most similar documents and their cosine similarity score
-        logging.info(f"Top 2 documents most similar to the query '{query}':")
+        logger.info(f"Top 2 documents most similar to the query '{query}':")
         for index in top_2_query:
-            logging.info(f"Sentence: '{self.corpus[index]}' | Cosine similarity score: {cosine_similarities[index]}")
+            logger.info(f"Sentence: '{self.corpus[index]}' | Cosine similarity score: {cosine_similarities[index]}")
+
+        res = dict()
+
+        res["top_2_query"] = top_2_query
+
+        res["cosine_similarities"] = cosine_similarities
+
+        return res
 
 if __name__ == "__main__":
 
@@ -55,6 +65,8 @@ if __name__ == "__main__":
     document_similarity = QueryVectorizer(documents)
 
     #top2_documents function is called
-    document_similarity.top2_documents(sample)
+    res = document_similarity.top2_documents(sample)
+
+    print(res)
 
 
