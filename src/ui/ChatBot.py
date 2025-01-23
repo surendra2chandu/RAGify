@@ -36,7 +36,7 @@ class ChatbotApp:
 if __name__ == "__main__":
 
     # Sample query
-    sample_query = "adi narayana "
+    sample_query = "sun"
 
     documents = [
         "The sun sets behind the mountains, casting a golden glow.",
