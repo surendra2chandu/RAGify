@@ -39,11 +39,11 @@ if __name__ == "__main__":
     sample_query = "adi narayana "
 
     documents = [
-        "This is the first document",
-        "This document is the second document",
-        "And this is the third one",
-        "Is this the first document adi",
-        "Is this the first first document first adi narayana choudary reddy"
+        "The sun sets behind the mountains, casting a golden glow.",
+        "The sun warmed the beach as we walked along the shore.",
+        "She picked up her book and opened to the first page.",
+        "After a long day, he relaxed with a hot cup of tea.",
+        "The warm air by the beach made the evening even more pleasant."
     ]
 
     # Initialize the ChatbotApp class
