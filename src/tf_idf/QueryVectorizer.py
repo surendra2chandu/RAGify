@@ -58,7 +58,7 @@ if __name__ == "__main__":
         "The sun warmed the beach as we walked along the shore.",
         "She picked up her book and opened to the first page.",
         "After a long day, he relaxed with a hot cup of tea.",
-        "The warm air by the beach made the evening even more pleasant."
+        "The warmed air by the beach made the evening even more pleasant."
     ]
 
     # Initialize the DocumentSimilarity class
