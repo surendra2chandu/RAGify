@@ -29,7 +29,7 @@ class DataRetrival:
 
 if __name__ == "__main__":
     # Sample query
-    sample_query = "who is narendra modi?"
+    sample_query = "defence ministry of america"
 
     # Retrieve relevant text
     results = DataRetrival().retrieve_relevant_text(sample_query)

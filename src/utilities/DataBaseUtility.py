@@ -21,21 +21,22 @@ class DataBaseUtility:
 
 
     # Function to store chunks in the database
-    def store_chunks_in_db(self, chunks):
+    def store_chunks_in_db(self, chunks, doc_name):
         """
         This function stores the chunks in the database.
         :param chunks: The chunks to be stored.
         :return: None
         """
 
-        # Drop the table if it exists
-        logger.info("Dropping the table if it exists...")
-        self.cursor.execute("DROP TABLE IF EXISTS document_chunks;")
+        # # Drop the table if it exists
+        # logger.info("Dropping the table if it exists...")
+        # self.cursor.execute("DROP TABLE IF EXISTS document_chunks;")
 
         # Create the table if it doesn't exist (Using pgvector's vector type for embeddings)
         self.cursor.execute("""
                     CREATE TABLE IF NOT EXISTS document_chunks (
-                        id SERIAL PRIMARY KEY,
+                        doc_id SERIAL PRIMARY KEY,
+                        doc_name TEXT,
                         chunk TEXT,
                         embedding vector  
                     );
@@ -47,10 +48,10 @@ class DataBaseUtility:
 
             self.cursor.execute(
                 """
-                INSERT INTO document_chunks (chunk, embedding)
-                VALUES (%s, %s::vector)  -- Cast the embedding to the vector type
+                INSERT INTO document_chunks (doc_name, chunk, embedding)
+                VALUES (%s, %s, %s::vector)  -- Cast the embedding to the vector type
                 """,
-                (chunk_text, chunk_embedding_list),
+                (doc_name, chunk_text, chunk_embedding_list),
             )
 
         # Commit the changes
