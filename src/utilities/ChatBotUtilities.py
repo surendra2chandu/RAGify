@@ -57,6 +57,36 @@ class ChatBotUtilities:
             # Update the chat history in the text area
             st.text_area("Chat History", value=chat_history, height=300)
 
+    def retrive_chunks(self, query):
+        """
+        This method retrieves the chunks from the database.
+        :param query: The query to retrieve the chunks.
+        :return: The chunks and similarity scores.
+        """
+
+        url = "http://127.0.0.1:8002/retrieve_text/"
+
+        response = requests.post(url, params={"query": query})
+
+        if response.status_code == 200:
+            res = response.json()
+        else:
+            res = "Error occurred when processing the request to url " + url
+
+        # Append query and response to chat history
+        st.session_state.history.append((query, res))
+
+        # Display response in the text area as well
+        if 'history' in st.session_state:
+            chat_history = ""
+            for user_input, bot_response in st.session_state.history:
+                chat_history += f"**You**: {user_input}\n"
+                chat_history += f"**Bot**: {bot_response}\n\n"
+            # Update the chat history in the text area
+            st.text_area("Chat History", value=chat_history, height=300)
+
+
+
     @staticmethod
     def clear_chat_history(self):
         """
