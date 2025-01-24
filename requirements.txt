@@ -1,3 +1,4 @@
+uvicorn
 PyPDF2
 transformers
 psycopg2

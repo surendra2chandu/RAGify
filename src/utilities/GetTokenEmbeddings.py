@@ -27,7 +27,7 @@ class GetTokenEmbeddings:
 
         # Tokenize the text
         logger.info("Tokenizing the text...")
-        inputs = self.tokenizer(text, return_tensors="pt", truncation=True, padding=True)
+        inputs = self.tokenizer(text, return_tensors="pt", truncation=True, padding=True, add_special_tokens=False)
 
         # Generate embeddings
         with torch.no_grad():

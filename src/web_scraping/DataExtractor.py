@@ -44,7 +44,6 @@ class DataExtractor:
             if title and article_url:
 
                 # Call the scraper function to get the content of the article URL
-                logger.info(f"Fetching content from {article_url}")
                 text = WebScraper().get_content(article_url)
 
                 # Add the extracted text to the data dictionary

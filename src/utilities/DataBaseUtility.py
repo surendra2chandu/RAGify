@@ -5,7 +5,7 @@ import psycopg2
 
 class DataBaseUtility:
     def __init__(self):
-        """
+        """                                                        vvvv
         This function initializes the DataBaseUtility class with the specified database configuration.
         """
 
@@ -21,12 +21,15 @@ class DataBaseUtility:
 
 
     # Function to store chunks in the database
-    def store_chunks_in_db(self, chunks, doc_name):
+    def store_chunks_in_db(self, chunks, doc_name, doc_type):
         """
         This function stores the chunks in the database.
-        :param chunks: The chunks to be stored.
+        :param chunks: The chunks to store.
+        :param doc_name: The name of the document.
+        :param doc_type: The type of the document.
         :return: None
         """
+
 
         # # Drop the table if it exists
         # logger.info("Dropping the table if it exists...")
@@ -37,6 +40,7 @@ class DataBaseUtility:
                     CREATE TABLE IF NOT EXISTS document_chunks (
                         doc_id SERIAL PRIMARY KEY,
                         doc_name TEXT,
+                        doc_type CHAR(1),
                         chunk TEXT,
                         embedding vector  
                     );
@@ -48,10 +52,10 @@ class DataBaseUtility:
 
             self.cursor.execute(
                 """
-                INSERT INTO document_chunks (doc_name, chunk, embedding)
-                VALUES (%s, %s, %s::vector)  -- Cast the embedding to the vector type
+                INSERT INTO document_chunks (doc_name, doc_type, chunk, embedding)
+                VALUES (%s, %s, %s, %s::vector)  -- Cast the embedding to the vector type
                 """,
-                (doc_name, chunk_text, chunk_embedding_list),
+                (doc_name, doc_type,  chunk_text, chunk_embedding_list),
             )
 
         # Commit the changes

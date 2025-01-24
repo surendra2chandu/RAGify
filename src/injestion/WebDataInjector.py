@@ -1,7 +1,7 @@
 # Importing the required libraries
 from src.web_scraping.DataExtractor import DataExtractor
 from src.utilities.LateChunking import LateChunking
-from src.conf.Configurations import logger
+from src.conf.Configurations import logger, DOC_TYPE_FOR_WEB
 from src.utilities.DataBaseUtility import DataBaseUtility
 from src.utilities.GetTokenEmbeddings import GetTokenEmbeddings
 import os
@@ -31,7 +31,7 @@ class WebDataInjector:
 
             # Store chunks in database
             logger.info("Storing chunks in the database...")
-            DataBaseUtility().store_chunks_in_db(chunks, doc_name)
+            DataBaseUtility().store_chunks_in_db(chunks, doc_name, DOC_TYPE_FOR_WEB)
 
 # Run the script
 if __name__ == "__main__":

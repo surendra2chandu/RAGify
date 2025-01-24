@@ -1,5 +1,5 @@
 # Importing required libraries
-from src.conf.Configurations import logger
+from src.conf.Configurations import logger, NUMBER_OF_MATCHES
 from src.utilities.GetTokenEmbeddings import GetTokenEmbeddings
 from src.utilities.DataBaseUtility import DataBaseUtility
 
@@ -25,7 +25,7 @@ class DataRetrival:
         logger.info("Fetching similar text from the database...")
         result = DataBaseUtility().fetch_similar_text(query_embedding)
 
-        return result
+        return result[:NUMBER_OF_MATCHES]
 
 if __name__ == "__main__":
     # Sample query
