@@ -13,7 +13,6 @@ class ChatbotApp:
 
     def main(self, query):
         # Initialize corpus
-
         bot = ChatBotUtilities()
 
         # Streamlit UI setup
@@ -25,12 +24,21 @@ class ChatbotApp:
         # Show chat history
         bot.show_chat_history(self)
 
-        # Text input for query
-        query = st.text_input("Enter your query:")
+        # button color
+        bot.button_color(self)
 
-        # Show results when query is entered
-        if query:
-            bot.handle_query(self, query, documents)
+        # Text input for query
+        query = st.text_input("Enter your query:", key="query")
+
+        st.button("Late chunking")
+
+        # Add an Enter button
+        if st.button("Submit"):
+            if query:
+                bot.handle_query(self, query, documents)
+            else:
+                st.write("Please enter a query.")
+
 
 # Run the main function
 if __name__ == "__main__":
@@ -51,4 +59,5 @@ if __name__ == "__main__":
 
     # Run the main function
     app.main(sample_query)
+
 
