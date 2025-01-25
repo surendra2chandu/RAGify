@@ -21,9 +21,12 @@ class GetTokenEmbeddings:
         """
         This function tokenizes the text and generates embeddings.
         :param text: The text to tokenize.
-        :param chunk_size: The chunk size.
         :return: The tokens and embeddings.
         """
+
+        tokens = self.tokenizer.tokenize(text)
+
+        l = len(tokens)
 
         # Tokenize the text
         logger.info("Tokenizing the text...")
