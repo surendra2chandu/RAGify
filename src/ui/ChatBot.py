@@ -1,43 +1,38 @@
-
-#import necessary libraries
 import streamlit as st
 import requests
-from sympy.printing.pretty.pretty_symbology import center
+import sys
 
-container=st.container(height=120,border=True)
+sys.path.append(r'C:\PycharmProjects\RAGify')
+from src.utilities.LateChunkingServiceManager import get_response_late_chunking
+from src.utilities.Tf_IdfServiceManager import get_response_tf_idf
+
+# Container for the title
+container = st.container()
 container.title("What assistance do you require?")
 
-
-# Initialize chat history
+# Initialize chat history and operation state
 if "messages" not in st.session_state:
     st.session_state.messages = []
+if "operation" not in st.session_state:
+    st.session_state.operation = None
 
 # Sidebar for buttons
 with st.sidebar:
-    contain = st.container(height=210, border=True)
+    contain = st.container()
+    contain.title("**Retrieval methods**")
+    if contain.button("Late Chunking"):
+        st.session_state.operation = "Late Chunking"
+    if contain.button("Tf-Idf"):
+        st.session_state.operation = "Tf-Idf"
 
-    contain.title("**Retrival methods**")
-    Late_Chunking_button = contain.button("Late Chunking")
-    Tf_Idf_button = contain.button("Tf-Idf")
-
-    con=st.container(height=210,border=True)
+    con = st.container()
     con.title("**Content source**")
     web_content = con.button("Web Content")
-    doc_content= con.button("Doc Content")
+    doc_content = con.button("Doc Content")
 
-    refresh_button = st.button("🔄Refresh")
-    if refresh_button:
+    if st.button("🔄 Refresh"):
         st.session_state.messages = []
-
-# Set the operation based on button clicks
-operation = None
-if Late_Chunking_button:
-    operation = "Late Chunking"
-elif Tf_Idf_button:
-    operation = "Tf-Idf"
-
-# Main container
-
+        st.session_state.operation = None
 
 # Display chat messages from history on app rerun
 for message in st.session_state.messages:
@@ -55,27 +50,10 @@ if prompt := st.chat_input("Enter your query..."):
 
     # Process query and generate response
     try:
-        if operation == "Late Chunking":
-            url = "http://127.0.0.1:8002/retrieve_text/"
-            response = requests.post(url, params={"query": prompt})
-            if response.status_code == 200:
-                response = response.json()
-            else:
-                response = f"Error occurred when processing the request to url {url}"
-        elif operation == "Tf-Idf":
-            url = "http://127.0.0.1:8002/tf-idf/"
-            documents = [
-                "The sun sets behind the mountains, casting a golden glow.",
-                "The sun warmed the beach as we walked along the shore.",
-                "She picked up her book and opened to the first page.",
-                "After a long day, he relaxed with a hot cup of tea.",
-                "The warmed air by the beach made the evening even more pleasant."
-            ]
-            response = requests.post(url, json={"corpus": documents, "query": prompt})
-            if response.status_code == 200:
-                response = response.json().get("response", "")
-            else:
-                response = f"Error occurred when processing the request to url {url}"
+        if st.session_state.operation == "Late Chunking":
+            response = get_response_late_chunking(prompt)
+        elif st.session_state.operation == "Tf-Idf":
+            response = get_response_tf_idf(prompt)
         else:
             response = "Please select either Late Chunking or Tf-Idf to perform an operation."
     except Exception as e:
@@ -88,11 +66,16 @@ if prompt := st.chat_input("Enter your query..."):
     # Add assistant message to chat history
     st.session_state.messages.append({"role": "assistant", "content": response})
 
+# Custom CSS for buttons
 st.markdown(
     """
     <style>
-            .stButton>button { width: 200px;   /* Set button width */height: 45px;   /* Set button height */font-size: 10px; /* Set button font size */}
-     </style>
-
+        .stButton>button { 
+            width: 200px;   /* Set button width */
+            height: 45px;   /* Set button height */
+            font-size: 10px; /* Set button font size */
+        }
+    </style>
     """,
-    unsafe_allow_html=True)
+    unsafe_allow_html=True,
+)

@@ -21,6 +21,12 @@ NUMBER_OF_MATCHES = 2
 # Give the model path for MiniLM-L6-v2
 model_path = r"C:\llm\MiniLM-L6-v2"
 
+# Define the URL for the LateChunking service
+LATE_CHUNKING_URL = "http://127.0.0.1:8002/retrieve_text/"
+
+# Define the URL for the Tf-Idf service
+TF_IDF_URL = "http://127.0.0.1:8002/tf-idf/"
+
 # Define the database configuration
 db_config = {
         "dbname": "langchain",
