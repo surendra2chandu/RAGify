@@ -1,65 +1,98 @@
-# Importing the necessary libraries
-import sys
+
+#import necessary libraries
 import streamlit as st
-sys.path.append(r'C:\PycharmProjects\RAGify')
-from src.utilities.ChatBotUtilities import ChatBotUtilities
+import requests
+from sympy.printing.pretty.pretty_symbology import center
 
-class ChatbotApp:
-    def __init__(self):
+container=st.container(height=120,border=True)
+container.title("What assistance do you require?")
 
-        # Initialize chat history if not already set
-        if 'history' not in st.session_state:
-            st.session_state.history = []
 
-    def main(self, query):
-        # Initialize corpus
-        bot = ChatBotUtilities()
+# Initialize chat history
+if "messages" not in st.session_state:
+    st.session_state.messages = []
 
-        # Streamlit UI setup
-        st.title("Simple Chatbot")
+# Sidebar for buttons
+with st.sidebar:
+    contain = st.container(height=210, border=True)
 
-        # Clear chat history
-        bot.clear_chat_history(self)
+    contain.title("**Retrival methods**")
+    Late_Chunking_button = contain.button("Late Chunking")
+    Tf_Idf_button = contain.button("Tf-Idf")
 
-        # Show chat history
-        bot.show_chat_history(self)
+    con=st.container(height=210,border=True)
+    con.title("**Content source**")
+    web_content = con.button("Web Content")
+    doc_content= con.button("Doc Content")
 
-        # button color
-        bot.button_color(self)
+    refresh_button = st.button("🔄Refresh")
+    if refresh_button:
+        st.session_state.messages = []
 
-        # Text input for query
-        query = st.text_input("Enter your query:", key="query")
+# Set the operation based on button clicks
+operation = None
+if Late_Chunking_button:
+    operation = "Late Chunking"
+elif Tf_Idf_button:
+    operation = "Tf-Idf"
 
-        if st.button("Late chunking"):
-            if query:
-                bot.retrive_chunks( query)
+# Main container
+
+
+# Display chat messages from history on app rerun
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
+
+# User input for query
+if prompt := st.chat_input("Enter your query..."):
+    # Add user message to chat history
+    st.session_state.messages.append({"role": "user", "content": prompt})
+
+    # Display user message in chat message container
+    with st.chat_message("user"):
+        st.markdown(f"***Question:*** {prompt}")
+
+    # Process query and generate response
+    try:
+        if operation == "Late Chunking":
+            url = "http://127.0.0.1:8002/retrieve_text/"
+            response = requests.post(url, params={"query": prompt})
+            if response.status_code == 200:
+                response = response.json()
             else:
-                st.write("Please enter a query.")
-
-        # Add an Enter button
-        if st.button("Submit"):
-            if query:
-                bot.handle_query(self, query, documents)
+                response = f"Error occurred when processing the request to url {url}"
+        elif operation == "Tf-Idf":
+            url = "http://127.0.0.1:8002/tf-idf/"
+            documents = [
+                "The sun sets behind the mountains, casting a golden glow.",
+                "The sun warmed the beach as we walked along the shore.",
+                "She picked up her book and opened to the first page.",
+                "After a long day, he relaxed with a hot cup of tea.",
+                "The warmed air by the beach made the evening even more pleasant."
+            ]
+            response = requests.post(url, json={"corpus": documents, "query": prompt})
+            if response.status_code == 200:
+                response = response.json().get("response", "")
             else:
-                st.write("Please enter a query.")
+                response = f"Error occurred when processing the request to url {url}"
+        else:
+            response = "Please select either Late Chunking or Tf-Idf to perform an operation."
+    except Exception as e:
+        response = f"There was an error while processing your request: {e}"
 
+    # Display assistant's response
+    with st.chat_message("assistant"):
+        st.markdown(f"***Answer:*** {response}")
 
-# Run the main function
-if __name__ == "__main__":
+    # Add assistant message to chat history
+    st.session_state.messages.append({"role": "assistant", "content": response})
 
-    # Sample query
-    sample_query = "sun"
+st.markdown(
+    """
+    <style>
+            .stButton>button { width: 200px;   /* Set button width */height: 45px;   /* Set button height */font-size: 10px; /* Set button font size */}
+     </style>
 
-    documents = [
-        "The sun sets behind the mountains, casting a golden glow.",
-        "The sun warmed the beach as we walked along the shore.",
-        "She picked up her book and opened to the first page.",
-        "After a long day, he relaxed with a hot cup of tea.",
-        "The warmed air by the beach made the evening even more pleasant."
-    ]
-
-    # Initialize the ChatbotApp class
-    app = ChatbotApp()
-
-    # Run the main function
-    app.main(sample_query)
+    """,
+    unsafe_allow_html=True)
