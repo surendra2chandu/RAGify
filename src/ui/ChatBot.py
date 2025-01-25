@@ -1,7 +1,7 @@
 # Importing the necessary libraries
 import sys
 import streamlit as st
-sys.path.append('D:/RAGify')
+sys.path.append(r'C:\PycharmProjects\RAGify')
 from src.utilities.ChatBotUtilities import ChatBotUtilities
 
 class ChatbotApp:
@@ -30,7 +30,11 @@ class ChatbotApp:
         # Text input for query
         query = st.text_input("Enter your query:", key="query")
 
-        st.button("Late chunking")
+        if st.button("Late chunking"):
+            if query:
+                bot.retrive_chunks( query)
+            else:
+                st.write("Please enter a query.")
 
         # Add an Enter button
         if st.button("Submit"):
@@ -59,5 +63,3 @@ if __name__ == "__main__":
 
     # Run the main function
     app.main(sample_query)
-
-
