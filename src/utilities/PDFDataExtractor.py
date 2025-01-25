@@ -1,7 +1,7 @@
 # Import the necessary packages
 from PyPDF2 import PdfReader
 from src.conf.Configurations import logger
-
+import re
 
 class PDFDataExtractor:
 
@@ -21,6 +21,8 @@ class PDFDataExtractor:
         # Iterate over the pages
         for page_number in range(len(reader.pages)):
             text += reader.pages[page_number].extract_text()
+
+        text = ' '.join(re.sub(r'[^A-Za-z0-9\s]', '', text).split())
 
         # Return the extracted text
         return text

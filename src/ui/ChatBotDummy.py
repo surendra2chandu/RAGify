@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-st.title("Chat Bot")
+st.title("How may I help you ?")
 
 documents = [
         "The sun sets behind the mountains, casting a golden glow.",
@@ -44,7 +44,7 @@ if prompt := st.chat_input("Enter your query..."):
 
     # Display user message in chat message container
     with st.chat_message("user"):
-        st.markdown(prompt)
+        st.markdown("Question: "+prompt)
 
     # Check if the user input is a number and return square or cube based on selection
     try:
@@ -58,6 +58,7 @@ if prompt := st.chat_input("Enter your query..."):
                 response = response.json()
             else:
                 response = "Error occurred when processing the request to url " + url
+
         elif operation == "Tf-Idf":
 
             # Process query and return response
@@ -76,7 +77,7 @@ if prompt := st.chat_input("Enter your query..."):
 
     # Display assistant's response
     with st.chat_message("assistant"):
-        st.markdown(response)
+        st.markdown("Answer: "+response)
 
     # Add assistant message to chat history
     st.session_state.messages.append({"role": "assistant", "content": response})
