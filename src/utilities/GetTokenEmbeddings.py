@@ -24,13 +24,15 @@ class GetTokenEmbeddings:
         :return: The tokens and embeddings.
         """
 
-        tokens = self.tokenizer.tokenize(text)
-
-        l = len(tokens)
+        # tokens = self.tokenizer.tokenize(text)
+        #
+        # l = len(tokens)
+        #
+        # embeddings = self.model(tokens)
 
         # Tokenize the text
         logger.info("Tokenizing the text...")
-        inputs = self.tokenizer(text, return_tensors="pt", truncation=True, padding=True, add_special_tokens=False)
+        inputs = self.tokenizer(text, return_tensors="pt", add_special_tokens=False)
 
         # Generate embeddings
         with torch.no_grad():

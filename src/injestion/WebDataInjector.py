@@ -23,7 +23,7 @@ class WebDataInjector:
         for doc_name, text in data.items():
             # Tokenize and get embeddings
             logger.info("Tokenizing and embedding text...")
-            tokens, embeddings = GetTokenEmbeddings().tokenize_and_embed(text[:500])
+            tokens, embeddings = GetTokenEmbeddings().tokenize_and_embed(text)
 
             # Perform late chunking
             logger.info("Performing late chunking...")
