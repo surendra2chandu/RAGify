@@ -1,13 +1,14 @@
+
+# import necessary libraries
 import streamlit as st
-import requests
 import sys
 
-sys.path.append(r'C:\PycharmProjects\RAGify')
+sys.path.append(r'D:\RAGify')
 from src.utilities.LateChunkingServiceManager import get_response_late_chunking
 from src.utilities.Tf_IdfServiceManager import get_response_tf_idf
 
 # Container for the title
-container = st.container()
+container = st.container(height=120, border=True)
 container.title("What assistance do you require?")
 
 # Initialize chat history and operation state
@@ -18,17 +19,15 @@ if "operation" not in st.session_state:
 
 # Sidebar for buttons
 with st.sidebar:
-    contain = st.container()
+    contain = st.container(height=210, border=True)
     contain.title("**Retrieval methods**")
-    if contain.button("Late Chunking"):
-        st.session_state.operation = "Late Chunking"
-    if contain.button("Tf-Idf"):
-        st.session_state.operation = "Tf-Idf"
+    st.session_state.operation =contain.radio("Select the operation",["Late Chunking","Tf-Idf"])
 
-    con = st.container()
+
+    con = st.container(height= 210, border=True)
     con.title("**Content source**")
-    web_content = con.button("Web Content")
-    doc_content = con.button("Doc Content")
+    con.radio("Select the operation",["Web Content","Doc Content"])
+
 
     if st.button("🔄 Refresh"):
         st.session_state.messages = []
@@ -51,9 +50,13 @@ if prompt := st.chat_input("Enter your query..."):
     # Process query and generate response
     try:
         if st.session_state.operation == "Late Chunking":
+            # Get response using Late Chunking
             response = get_response_late_chunking(prompt)
+
         elif st.session_state.operation == "Tf-Idf":
+            # Get response using Tf-Idf
             response = get_response_tf_idf(prompt)
+
         else:
             response = "Please select either Late Chunking or Tf-Idf to perform an operation."
     except Exception as e:
