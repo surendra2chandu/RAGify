@@ -1,5 +1,3 @@
-from http.client import responses
-
 from fastapi import APIRouter
 from pydantic import BaseModel
 from typing import List
@@ -27,16 +25,15 @@ async def get_similar_docs(request: SimilarityRequest):
     res = document_similarity.top2_documents(query)
 
     # Prepare the response with line-by-line output
-    # response = "\n".join([
-    #     f"Sentence: '{corpus[doc]}' | Cosine similarity: {res['cosine_similarities'][doc]}"
-    #     for doc in res["top_2_query"]
-    # ])
+    response = "\n".join([
+        f"Sentence: '{corpus[doc]}' | Cosine similarity: {res['cosine_similarities'][doc]}"
+        for doc in res["top_2_query"]
+    ])
 
-    response = ""
-    for doc in res["top_2_query"]:
-        response += corpus[doc]
+    # Log the response
+    logger.info(f"Response: {response}")
 
-    return response
+    return {"response": response}
 
 
 

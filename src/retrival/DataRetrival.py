@@ -2,7 +2,6 @@
 from src.conf.Configurations import logger, NUMBER_OF_MATCHES
 from src.utilities.GetTokenEmbeddings import GetTokenEmbeddings
 from src.utilities.DataBaseUtility import DataBaseUtility
-from src.web_scraping.Temp2 import title
 
 
 class DataRetrival:
@@ -26,9 +25,7 @@ class DataRetrival:
         logger.info("Fetching similar text from the database...")
         result = DataBaseUtility().fetch_similar_text(query_embedding)
 
-        res = result[:NUMBER_OF_MATCHES]
-
-        return res
+        return result[:NUMBER_OF_MATCHES]
 
 if __name__ == "__main__":
     # Sample query
