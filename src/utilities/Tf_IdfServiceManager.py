@@ -1,6 +1,7 @@
 #import necessary libraries
 import requests
 from src.conf.Configurations import logger, TF_IDF_URL
+from src.utilities.OllamaServiceManager import process_ollama_request
 
 
 def get_response_tf_idf(query):
@@ -16,7 +17,8 @@ def get_response_tf_idf(query):
         "The sun warmed the beach as we walked along the shore.",
         "She picked up her book and opened to the first page.",
         "After a long day, he relaxed with a hot cup of tea.",
-        "The warmed air by the beach made the evening even more pleasant."
+        "The warmed air by the beach made the evening even more pleasant.",
+        "Paris is the capital of France and efile tower is located in Paris."
     ]
 
     # Send a post request to the Tf-Idf service and get the response
@@ -25,7 +27,12 @@ def get_response_tf_idf(query):
 
     # Check the status code and get the response
     if response.status_code == 200:
-        response = response.json().get("response", "")
+        # Get the response in JSON format
+        response = response.json()
+
+        # Process the response with the Ollama model
+        logger.info("Processing the response with the Ollama model")
+        response = process_ollama_request(response, query)
 
     else:
         response = f"Error occurred when processing the request to url {TF_IDF_URL}"
@@ -36,5 +43,6 @@ def get_response_tf_idf(query):
 
 if __name__ == "__main__":
 
-    res = get_response_tf_idf("sun?")
+    res = get_response_tf_idf("What is capital of france?")
+
     print(res)
