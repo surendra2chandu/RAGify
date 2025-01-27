@@ -39,7 +39,7 @@ class PDFDataInjector:
 if __name__ == "__main__":
 
     # Sample PDF path
-    sample_pdf_path = r'C:\Docs\doc5.pdf'
+    sample_pdf_path = r'C:\Docs\sample_doc.pdf'
 
     sample_file_name = os.path.splitext(os.path.basename(sample_pdf_path))[0]
 
