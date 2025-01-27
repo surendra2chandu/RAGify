@@ -19,11 +19,16 @@ def get_response_late_chunking(query):
 
         # Get the response in JSON format
         response = response.json()
-        response = response[0][0]
 
-        # Process the response with the Ollama model
-        logger.info("Processing the response with the Ollama model")
-        response = process_ollama_request(response, query)
+        for i in range(len(response)):
+            if response[i][1] >= 0.2:
+
+                # Process the response with the Ollama model
+                logger.info("Processing the response with the Ollama model")
+                response = process_ollama_request(response[i][0], query)
+                break
+        else:
+            response = "No relevant information found in the database."
     else:
         response = f"Error occurred when processing the request to url {LATE_CHUNKING_URL}"
 

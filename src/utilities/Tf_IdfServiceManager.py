@@ -27,12 +27,17 @@ def get_response_tf_idf(query):
 
     # Check the status code and get the response
     if response.status_code == 200:
-        # Get the response in JSON format
+        # Get the response in JSON
         response = response.json()
 
-        # Process the response with the Ollama model
-        logger.info("Processing the response with the Ollama model")
-        response = process_ollama_request(response, query)
+        for i in range(len(response)):
+            if response[i][1] >= 0.2:
+                # Process the response with the Ollama model
+                logger.info("Processing the response with the Ollama model")
+                response = process_ollama_request(response[i][0], query)
+                break
+        else:
+            response = "No relevant information found in the database."
 
     else:
         response = f"Error occurred when processing the request to url {TF_IDF_URL}"
@@ -43,6 +48,6 @@ def get_response_tf_idf(query):
 
 if __name__ == "__main__":
 
-    res = get_response_tf_idf("What is capital of france?")
+    res = get_response_tf_idf("tell me about india?")
 
     print(res)

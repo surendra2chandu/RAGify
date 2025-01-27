@@ -32,9 +32,9 @@ async def get_similar_docs(request: SimilarityRequest):
     #     for doc in res["top_2_query"]
     # ])
 
-    response = ""
+    response = []
     for doc in res["top_2_query"]:
-        response += corpus[doc]
+        response.append((corpus[doc], res["cosine_similarities"][doc]))
 
     return response
 

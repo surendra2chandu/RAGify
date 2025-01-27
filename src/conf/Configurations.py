@@ -16,7 +16,7 @@ DOC_TYPE_FOR_PDF  = "D"
 DOC_TYPE_FOR_WEB = "W"
 
 # Define the number of matches to return
-NUMBER_OF_MATCHES = 1
+NUMBER_OF_MATCHES = 2
 
 # Give the model path for MiniLM-L6-v2
 model_path = r"C:\llm\MiniLM-L6-v2"

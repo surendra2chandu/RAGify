@@ -32,7 +32,7 @@ class DataRetrival:
 
 if __name__ == "__main__":
     # Sample query
-    sample_query = "defence ministry of america"
+    sample_query = "Who are the customers impacted by the upcoming satellite change for the AFN TV programming package in the Pacific region?"
 
     # Retrieve relevant text
     results = DataRetrival().retrieve_relevant_text(sample_query)
