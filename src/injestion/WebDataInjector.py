@@ -38,9 +38,9 @@ if __name__ == "__main__":
 
 
     sample_db_config = {
-        "dbname": "langchain",
-        "user": "langchain",
-        "password": "langchain",
+        "dbname": "postgres",
+        "user": "postgres",
+        "password": "adisecret",
         "host": "localhost",
         "port": 5432,
     }
