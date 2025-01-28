@@ -22,6 +22,13 @@ class PDFDataExtractor:
         for page_number in range(len(reader.pages)):
             text += reader.pages[page_number].extract_text()
 
+            # Remove extra spaces
+        text = re.sub(r'\s+', ' ', text.strip())
+        # Remove all extra special characters, keeping only one
+        text = re.sub(r'([^\w\s])\1+', r'\1', text)
+        # Remove any characters that aren't alphanumeric, spaces, or single special characters
+        text = re.sub(r'[^\w\s.,?!]', '', text)
+
         text = ' '.join(re.sub(r'[^A-Za-z0-9\s]', '', text).split())
 
         # Return the extracted text
@@ -30,6 +37,6 @@ class PDFDataExtractor:
 
 if __name__ == '__main__':
     pdf_data_extractor = PDFDataExtractor()
-    sample_pdf_path = r'C:\Docs\doc5.pdf'
+    sample_pdf_path = r'C:\Docs\sample_doc.pdf'
     extracted_text = pdf_data_extractor.extract_text_from_pdf(sample_pdf_path)
     print(extracted_text)
