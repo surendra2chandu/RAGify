@@ -2,7 +2,6 @@
 from src.conf.Configurations import logger, NUMBER_OF_MATCHES
 from src.utilities.GetTokenEmbeddings import GetTokenEmbeddings
 from src.utilities.DataBaseUtility import DataBaseUtility
-from src.web_scraping.Temp2 import title
 
 
 class DataRetrival:
