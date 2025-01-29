@@ -99,3 +99,36 @@ class DataBaseUtility:
         # Return the results
         return results
 
+
+
+    def extract_web_content(self):
+        """
+        This function retrieves all the web content from the database.
+        :return: The web content.
+        """
+        # Retrieve all web content
+        logger.info("Retrieving all web content...")
+        self.cursor.execute(
+            """
+            SELECT chunk
+            FROM document_chunks
+            WHERE doc_type = 'W';
+            """
+        )
+
+        # Fetch the results
+        logger.info("Fetching the results...")
+        results = self.cursor.fetchall()
+
+        # Convert the results to a list
+        chunks = [row[0] for row in results]
+
+        # Close the cursor and connection
+        logger.info("Closing the cursor and connection...")
+        self.cursor.close()
+        self.conn.close()
+
+        # Return the results
+        return chunks
+
+

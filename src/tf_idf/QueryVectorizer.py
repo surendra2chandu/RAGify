@@ -4,21 +4,23 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 from src.conf.Configurations import logger
+from src.utilities.DataBaseUtility import DataBaseUtility
 
 
 # Set up logging configuration
 class QueryVectorizer:
-    def __init__(self, corpus):
+
+    def __init__(self):
         """
         Initializes the DocumentSimilarity class.
-        :param corpus: The list of documents in the corpus.
         """
 
-        self.corpus = corpus
+        self.corpus = DataBaseUtility().extract_web_content()
         self.vectorizer = TfidfVectorizer()
-        self.tfidf_matrix = self.vectorizer.fit_transform(corpus)
+        self.tfidf_matrix = self.vectorizer.fit_transform(self.corpus)
+        print(self.tfidf_matrix)
 
-    def top2_documents(self, query):
+    def top3_documents(self, query):
         """
         This method performs cosine similarity checks between a given query and the documents in the corpus
         to log the top 2 most similar documents.
@@ -33,40 +35,31 @@ class QueryVectorizer:
         cosine_similarities = cosine_similarity(query_vec, self.tfidf_matrix).flatten()
 
         # Get the indices of the top 2 most similar documents
-        top_2_query = np.argsort(cosine_similarities)[-2:][::-1]
+        top_3_query = np.argsort(cosine_similarities)[-3:][::-1]
+
+        result = {}
 
         # Log the top 2 most similar documents and their cosine similarity score
-        logger.info(f"Top 2 documents most similar to the query '{query}':")
-        for index in top_2_query:
-            logger.info(f"Sentence: '{self.corpus[index]}' | Cosine similarity score: {cosine_similarities[index]}")
+        logger.info(f"Top 3 documents most similar to the query '{query}':")
+        for index in top_3_query:
+            logger.info(f"Sentence: '{self.corpus[index]}' | Confidence level: {cosine_similarities[index]}")
 
-        res = dict()
 
-        res["top_2_query"] = top_2_query
+            result["Confidence level"] = cosine_similarities[index]
 
-        res["cosine_similarities"] = cosine_similarities
 
-        return res
+
+
+        return result
 
 if __name__ == "__main__":
 
     # Sample query
-    sample = "sun "
-
-    documents = [
-        "The sun sets behind the mountains, casting a golden glow.",
-        "The sun warmed the beach as we walked along the shore.",
-        "She picked up her book and opened to the first page.",
-        "After a long day, he relaxed with a hot cup of tea.",
-        "The warmed air by the beach made the evening even more pleasant."
-    ]
-
-    # Initialize the DocumentSimilarity class
-    document_similarity = QueryVectorizer(documents)
+    sample= "tell me about navy funds?"
 
     #top2_documents function is called
-    res = document_similarity.top2_documents(sample)
-
+    res = QueryVectorizer().top3_documents(sample)
     print(res)
+
 
 

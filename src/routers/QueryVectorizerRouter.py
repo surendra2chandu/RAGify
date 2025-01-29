@@ -6,25 +6,15 @@ from typing import List
 from src.conf.Configurations import logger
 from src.tf_idf.QueryVectorizer import QueryVectorizer
 
-# Define the Pydantic model
-class SimilarityRequest(BaseModel):
-    corpus: List[str]
-    query: str
-
 # Initialize the router
 router = APIRouter(tags=["Similarities"])
 
 # Define the route for the root endpoint
 @router.post("/tf-idf/")
-async def get_similar_docs(request: SimilarityRequest):
-    corpus = request.corpus
-    query = request.query
-
-    # Initialize the QueryVectorizer class with the corpus
-    document_similarity = QueryVectorizer(corpus)
+async def get_similar_docs(query: str):
 
     # Get the top 2 most similar documents
-    res = document_similarity.top2_documents(query)
+    res = QueryVectorizer().top3_documents(query)
 
     # Prepare the response with line-by-line output
     # response = "\n".join([
@@ -32,11 +22,11 @@ async def get_similar_docs(request: SimilarityRequest):
     #     for doc in res["top_2_query"]
     # ])
 
-    response = []
-    for doc in res["top_2_query"]:
-        response.append((corpus[doc], res["cosine_similarities"][doc]))
+    # response = []
+    # for doc in res["top_2_query"]:
+    #     response.append((corpus[doc], res["cosine_similarities"][doc]))
 
-    return response
+    return res
 
 
 
