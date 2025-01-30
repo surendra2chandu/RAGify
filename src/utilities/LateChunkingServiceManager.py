@@ -26,11 +26,11 @@ def get_response_from_late_chunking(query):
                 logger.info(f"Appending relevant information to the context")
                 context += response[i][0] + ". \n"
 
+        return context
     else:
         response = f"Error occurred when processing the request to url {LATE_CHUNKING_URL}"
 
-    # Return the response
-    return response
+        return response
 
 
 if __name__ == "__main__":

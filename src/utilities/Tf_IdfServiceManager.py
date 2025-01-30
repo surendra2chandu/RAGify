@@ -27,11 +27,13 @@ def get_response_tf_idf(query):
                 # Append the relevant information to the context
                 logger.info(f"Appending relevant information to the context")
                 context += response[i][0] + ". \n"
+
+        return context
     else:
         response = f"Error occurred when processing the request to url {TF_IDF_URL}"
 
-    # Return the response
-    return response
+        return response
+
 
 
 if __name__ == "__main__":
