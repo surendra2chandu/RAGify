@@ -1,5 +1,7 @@
 import logging
 
+from psycopg2.errorcodes import CONFIGURATION_LIMIT_EXCEEDED
+
 # Set up logging configuration (Set the logging level to INFO)
 logging.basicConfig(level=logging.INFO)
 
@@ -18,8 +20,14 @@ DOC_TYPE_FOR_WEB = "W"
 # Define the number of matches to return
 NUMBER_OF_MATCHES = 3
 
-# Define the threshold for the cosine similarity
-THRESHOLD = 0.2
+# Define the threshold for the LateChunking service
+THRESHOLD_FOR_LATE_CHUNKING = 0.2
+
+# Define the threshold for the Tf-Idf service
+THRESHOLD_FOR_TF_IDF = 0.2
+
+# set the configuration
+CONFIGURATION = "BOTH"
 
 # Define the URL for the LateChunking service
 LATE_CHUNKING_URL = "http://127.0.0.1:8002/retrieve_text/"

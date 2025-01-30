@@ -3,8 +3,7 @@
 import streamlit as st
 import sys
 sys.path.append(r'C:\PycharmProjects\RAGify')
-from src.utilities.LateChunkingServiceManager import get_response_from_late_chunking
-from src.utilities.Tf_IdfServiceManager import get_response_tf_idf
+from src.api import ChatBot
 
 # Container for the title
 container = st.container(height=120, border=True)
@@ -50,11 +49,11 @@ if prompt := st.chat_input("Enter your query..."):
     try:
         if st.session_state.operation == "Late Chunking":
             # Get response using Late Chunking
-            response = get_response_from_late_chunking(prompt)
+            response = ChatBot.get_response(prompt)
 
         elif st.session_state.operation == "Tf-Idf":
             # Get response using Tf-Idf
-            response = get_response_tf_idf(prompt)
+            response = ChatBot.get_response(prompt)
 
         else:
             response = "Please select either Late Chunking or Tf-Idf to perform an operation."
