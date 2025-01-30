@@ -101,18 +101,18 @@ class DataBaseUtility:
 
 
 
-    def extract_web_content(self):
+    def extract_doc_content(self):
         """
         This function retrieves all the web content from the database.
-        :return: The web content.
+        :return: The doc content.
         """
         # Retrieve all web content
-        logger.info("Retrieving all web content...")
+        logger.info("Retrieving all doc content...")
         self.cursor.execute(
             """
             SELECT chunk
             FROM document_chunks
-            WHERE doc_type = 'W';
+            WHERE doc_type = 'D';
             """
         )
 

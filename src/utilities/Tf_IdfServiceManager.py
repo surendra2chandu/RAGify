@@ -23,7 +23,7 @@ def get_response_tf_idf(query):
 
     # Send a post request to the Tf-Idf service and get the response
     logger.info(f"Sending a post request to the Tf-Idf service with query: {query}")
-    response = requests.post(TF_IDF_URL, json={"corpus": documents, "query": query})
+    response = requests.post(TF_IDF_URL, params={"query": query})
 
     # Check the status code and get the response
     if response.status_code == 200:

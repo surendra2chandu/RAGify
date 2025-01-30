@@ -3,7 +3,7 @@
 import streamlit as st
 import sys
 sys.path.append(r'C:\PycharmProjects\RAGify')
-from src.utilities.LateChunkingServiceManager import get_response_late_chunking
+from src.utilities.LateChunkingServiceManager import get_response_from_late_chunking
 from src.utilities.Tf_IdfServiceManager import get_response_tf_idf
 
 # Container for the title
@@ -50,7 +50,7 @@ if prompt := st.chat_input("Enter your query..."):
     try:
         if st.session_state.operation == "Late Chunking":
             # Get response using Late Chunking
-            response = get_response_late_chunking(prompt)
+            response = get_response_from_late_chunking(prompt)
 
         elif st.session_state.operation == "Tf-Idf":
             # Get response using Tf-Idf

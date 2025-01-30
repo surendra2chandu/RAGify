@@ -3,7 +3,7 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
-from src.conf.Configurations import logger
+from src.conf.Configurations import logger, NUMBER_OF_MATCHES
 from src.utilities.DataBaseUtility import DataBaseUtility
 
 
@@ -15,10 +15,9 @@ class QueryVectorizer:
         Initializes the DocumentSimilarity class.
         """
 
-        self.corpus = DataBaseUtility().extract_web_content()
+        self.corpus = DataBaseUtility().extract_doc_content()
         self.vectorizer = TfidfVectorizer()
         self.tfidf_matrix = self.vectorizer.fit_transform(self.corpus)
-        print(self.tfidf_matrix)
 
     def top3_documents(self, query):
         """
@@ -35,27 +34,22 @@ class QueryVectorizer:
         cosine_similarities = cosine_similarity(query_vec, self.tfidf_matrix).flatten()
 
         # Get the indices of the top 2 most similar documents
-        top_3_query = np.argsort(cosine_similarities)[-3:][::-1]
+        top_3_query = np.argsort(cosine_similarities)[-NUMBER_OF_MATCHES:][::-1]
 
-        result = {}
+        result = []
 
         # Log the top 2 most similar documents and their cosine similarity score
         logger.info(f"Top 3 documents most similar to the query '{query}':")
         for index in top_3_query:
             logger.info(f"Sentence: '{self.corpus[index]}' | Confidence level: {cosine_similarities[index]}")
-
-
-            result["Confidence level"] = cosine_similarities[index]
-
-
-
+            result.append((self.corpus[index], cosine_similarities[index]))
 
         return result
 
 if __name__ == "__main__":
 
     # Sample query
-    sample= "tell me about navy funds?"
+    sample= "lcsp process graphic aflcmc classified lcsp process 2020pptx attachment 16 change management plan attachment 16change management plandoc"
 
     #top2_documents function is called
     res = QueryVectorizer().top3_documents(sample)

@@ -4,7 +4,7 @@ from src.conf.Configurations import logger, LATE_CHUNKING_URL
 from src.utilities.OllamaServiceManager import process_ollama_request
 
 
-def get_response_late_chunking(query):
+def get_response_from_late_chunking(query):
     """
     Function to get response from the LateChunking service
     :param query: The query to be processed
@@ -38,6 +38,6 @@ def get_response_late_chunking(query):
 
 if __name__ == "__main__":
 
-    res = get_response_late_chunking("Who are the customers impacted by the upcoming satellite change for the AFN TV programming package in the Pacific region?")
+    res = get_response_from_late_chunking("Who are the customers impacted by the upcoming satellite change for the AFN TV programming package in the Pacific region?")
 
     print(res)
