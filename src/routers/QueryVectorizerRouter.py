@@ -15,7 +15,7 @@ async def get_similar_docs(query: str):
     """
 
     # Get the top 2 most similar documents
-    res = QueryVectorizer().top3_documents(query)
+    res = QueryVectorizer().extract_docs(query)
 
     # Return the response
     return res

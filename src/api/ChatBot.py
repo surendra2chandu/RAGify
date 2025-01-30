@@ -1,6 +1,6 @@
 #import necessary libraries
 import requests
-from src.conf.Configurations import logger, LATE_CHUNKING_URL, TF_IDF_URL
+from src.conf.Configurations import logger, LATE_CHUNKING_URL, TF_IDF_URL, THRESHOLD
 from src.utilities.OllamaServiceManager import process_ollama_request
 
 
@@ -22,7 +22,7 @@ def get_response(query):
         response = late_chunk_response.json()
 
         for i in range(len(response)):
-            if response[i][1] >= 0.2:
+            if response[i][1] >= THRESHOLD:
 
                 # Append the relevant information to the context
                 logger.info(f"Appending relevant information to the context")
@@ -41,7 +41,7 @@ def get_response(query):
         response = tf_idf_response.json()
 
         for i in range(len(response)):
-            if response[i][1] >= 0.2:
+            if response[i][1] >= THRESHOLD:
 
                 # Append the relevant information to the context
                 logger.info(f"Appending relevant information to the context")

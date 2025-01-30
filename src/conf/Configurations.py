@@ -18,6 +18,9 @@ DOC_TYPE_FOR_WEB = "W"
 # Define the number of matches to return
 NUMBER_OF_MATCHES = 3
 
+# Define the threshold for the cosine similarity
+THRESHOLD = 0.2
+
 # Define the URL for the LateChunking service
 LATE_CHUNKING_URL = "http://127.0.0.1:8002/retrieve_text/"
 

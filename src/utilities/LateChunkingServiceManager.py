@@ -1,8 +1,6 @@
 #import necessary libraries
 import requests
-from src.conf.Configurations import logger, LATE_CHUNKING_URL
-from src.utilities.OllamaServiceManager import process_ollama_request
-
+from src.conf.Configurations import logger, LATE_CHUNKING_URL, THRESHOLD
 
 def get_response_from_late_chunking(query):
     """
@@ -11,24 +9,23 @@ def get_response_from_late_chunking(query):
     :return: The response from the service
     """
 
+    # Initialize the context
+    context = ""
 
     # Send a post request to the LateChunking service and get the response
     logger.info(f"Sending a post request to the LateChunking service with query: {query}")
-    response = requests.post(LATE_CHUNKING_URL, params={"query": query})
-    if response.status_code == 200:
+    late_chunk_response = requests.post(LATE_CHUNKING_URL, params={"query": query})
+    if late_chunk_response.status_code == 200:
 
         # Get the response in JSON format
-        response = response.json()
+        response = late_chunk_response.json()
 
         for i in range(len(response)):
-            if response[i][1] >= 0.2:
+            if response[i][1] >= THRESHOLD:
+                # Append the relevant information to the context
+                logger.info(f"Appending relevant information to the context")
+                context += response[i][0] + ". \n"
 
-                # Process the response with the Ollama model
-                logger.info("Processing the response with the Ollama model")
-                response = process_ollama_request(response[i][0], query)
-                break
-        else:
-            response = "No relevant information found in the database."
     else:
         response = f"Error occurred when processing the request to url {LATE_CHUNKING_URL}"
 
