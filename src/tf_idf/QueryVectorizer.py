@@ -19,7 +19,7 @@ class QueryVectorizer:
         self.vectorizer = TfidfVectorizer()
         self.tfidf_matrix = self.vectorizer.fit_transform(self.corpus)
 
-    def top3_documents(self, query):
+    def extract_docs(self, query):
         """
         This method performs cosine similarity checks between a given query and the documents in the corpus
         to log the top 2 most similar documents.
@@ -52,7 +52,7 @@ if __name__ == "__main__":
     sample= "lcsp process graphic aflcmc classified lcsp process 2020pptx attachment 16 change management plan attachment 16change management plandoc"
 
     #top2_documents function is called
-    res = QueryVectorizer().top3_documents(sample)
+    res = QueryVectorizer().extract_docs(sample)
     print(res)
 
 
