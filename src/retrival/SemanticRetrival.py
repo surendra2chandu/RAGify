@@ -25,9 +25,7 @@ class DataRetrival:
         logger.info("Fetching similar text from the database...")
         result = DataBaseUtility().fetch_similar_text(query_embedding)
 
-        res = result[:NUMBER_OF_MATCHES]
-
-        return res
+        return result
 
 if __name__ == "__main__":
     # Sample query

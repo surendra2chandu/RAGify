@@ -1,5 +1,5 @@
 # Importing the required libraries
-from src.conf.Configurations import logger, db_config
+from src.conf.Configurations import logger, db_config, NUMBER_OF_MATCHES_FOR_SEMANTIC_RETRIEVAL
 import psycopg2
 
 
@@ -82,9 +82,10 @@ class DataBaseUtility:
             """
             SELECT chunk, 1 - (embedding <=> %s::vector) AS similarity
             FROM document_chunks
-            ORDER BY similarity DESC;
+            ORDER BY similarity DESC
+            LIMIT %s;
             """,
-            (query_embedding.tolist(),)
+            (query_embedding.tolist(), NUMBER_OF_MATCHES_FOR_SEMANTIC_RETRIEVAL)
         )
 
         # Fetch the results

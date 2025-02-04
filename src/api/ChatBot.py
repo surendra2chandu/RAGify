@@ -1,6 +1,6 @@
 # import necessary libraries
 import requests
-from src.conf.Configurations import logger, LATE_CHUNKING_URL, TF_IDF_URL, THRESHOLD_FOR_LATE_CHUNKING, THRESHOLD_FOR_TF_IDF, CONFIGURATION
+from src.conf.Configurations import logger, LATE_CHUNKING_URL, TF_IDF_URL, THRESHOLD_FOR_SEMANTIC_RETRIVAL, THRESHOLD_FOR_TF_IDF, SEMANTIC_CONFIGURATION
 from src.utilities.OllamaServiceManager import process_ollama_request
 
 
@@ -10,7 +10,7 @@ def get_response(query):
     :param query: The query to be processed
     :return: The response from the service
     """
-    if CONFIGURATION == "BOTH":
+    if SEMANTIC_CONFIGURATION == "BOTH":
         # Initialize the context
         context = ""
 
@@ -23,7 +23,7 @@ def get_response(query):
             response = late_chunk_response.json()
 
             for i in range(len(response)):
-                if response[i][1] >= THRESHOLD_FOR_LATE_CHUNKING:
+                if response[i][1] >= THRESHOLD_FOR_SEMANTIC_RETRIVAL:
 
                     # Append the relevant information to the context
                     logger.info(f"Appending relevant information to the context")

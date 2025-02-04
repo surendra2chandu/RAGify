@@ -17,17 +17,20 @@ DOC_TYPE_FOR_PDF  = "D"
 # Define the document type for web data
 DOC_TYPE_FOR_WEB = "W"
 
-# Define the number of matches to return
-NUMBER_OF_MATCHES = 3
+# Define the number of matches toN be retrieved for semantic retrieval
+NUMBER_OF_MATCHES_FOR_SEMANTIC_RETRIEVAL = 3
+
+# Define the number of matches to be retrieved for Tf-Idf
+NUMBER_OF_MATCHES_FOR_TF_IDF = 3
 
 # Define the threshold for the LateChunking service
-THRESHOLD_FOR_LATE_CHUNKING = 0.2
+THRESHOLD_FOR_SEMANTIC_RETRIVAL = 0.2
 
 # Define the threshold for the Tf-Idf service
 THRESHOLD_FOR_TF_IDF = 0.2
 
 # set the configuration
-CONFIGURATION = "BOTH"
+SEMANTIC_CONFIGURATION = "BOTH"
 
 # Define the URL for the LateChunking service
 LATE_CHUNKING_URL = "http://127.0.0.1:8002/retrieve_text/"

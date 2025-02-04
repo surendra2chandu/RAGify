@@ -2,7 +2,7 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
-from src.conf.Configurations import logger, NUMBER_OF_MATCHES
+from src.conf.Configurations import logger, NUMBER_OF_MATCHES_FOR_TF_IDF
 from src.utilities.DataBaseUtility import DataBaseUtility
 
 
@@ -32,7 +32,7 @@ class QueryVectorizer:
         cosine_similarities = cosine_similarity(query_vec, self.tfidf_matrix).flatten()
 
         # Get the indices of the top 2 most similar documents
-        top_3_query = np.argsort(cosine_similarities)[-NUMBER_OF_MATCHES:][::-1]
+        top_3_query = np.argsort(cosine_similarities)[-NUMBER_OF_MATCHES_FOR_TF_IDF:][::-1]
 
         result = []
 
