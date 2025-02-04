@@ -1,6 +1,6 @@
 # Importing necessary libraries
 from fastapi import APIRouter
-from src.retrival.DataRetrival import DataRetrival
+from src.retrival.SemanticRetrival import DataRetrival
 
 # Initialize the router
 router = APIRouter()

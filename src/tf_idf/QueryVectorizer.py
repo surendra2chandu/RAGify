@@ -1,4 +1,3 @@
-
 # Importing necessary classes,libraries and modules
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -21,10 +20,9 @@ class QueryVectorizer:
 
     def extract_docs(self, query):
         """
-        This method performs cosine similarity checks between a given query and the documents in the corpus
-        to log the top 2 most similar documents.
-        :param query: The input query to compare with the documents.
-        :return: None
+        This function extracts the top most similar documents to the query.
+        :param query: The query to search for.
+        :return: The top most similar documents to the query.
         """
 
         # Transform the query using the same vectorizer
