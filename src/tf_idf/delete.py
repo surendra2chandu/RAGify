@@ -12,6 +12,7 @@ db_config = {
     "port": 5432,
 }
 
+
 # Corpus (Documents)
 corpus = [
     "Machine learning is a subset of artificial intelligence.",
