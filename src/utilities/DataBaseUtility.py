@@ -102,7 +102,7 @@ class DataBaseUtility:
 
 
 
-    def extract_doc_content(self):
+    def extract_doc_content(self, doc_type = 'D'):
         """
         This function retrieves all the web content from the database.
         :return: The doc content.
@@ -113,7 +113,7 @@ class DataBaseUtility:
             """
             SELECT chunk
             FROM document_chunks
-            WHERE doc_type = 'D';
+            WHERE doc_type = doc_type;
             """
         )
 
@@ -131,5 +131,15 @@ class DataBaseUtility:
 
         # Return the results
         return chunks
+
+
+    def document_exists(self, file_name):
+        """
+        Checks if a document with the given name already exists in the database.
+        :param file_name: Name of the document to check.
+        :return: True if document exists, otherwise False.
+        """
+        self.cursor.execute("SELECT 1 FROM document_chunks WHERE doc_name = %s", (file_name,))
+        return self.cursor.fetchone() is not None
 
 

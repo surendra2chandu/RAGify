@@ -18,6 +18,9 @@ class PDFDataInjector:
         :return: None
         """
 
+        if DataBaseUtility().document_exists(file_name):
+            logger.info(f"Document '{file_name}' already exists in the database. Skipping...")
+            return
 
         # Extract text from PDF
         logger.info("Extracting text from PDF...")
@@ -43,12 +46,5 @@ if __name__ == "__main__":
 
     sample_file_name = os.path.splitext(os.path.basename(sample_pdf_path))[0]
 
-    sample_db_config = {
-        "dbname": "langchain",
-        "user": "langchain",
-        "password": "langchain",
-        "host": "localhost",
-        "port": 5432,
-    }
 
     PDFDataInjector().process_pdf_and_store(sample_pdf_path, sample_file_name)
