@@ -1,26 +1,14 @@
+# Importing necessary classes,libraries and modules
 import psycopg2
 import numpy as np
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-
-# Database Configuration
-db_config = {
-    "dbname": "langchain",
-    "user": "langchain",
-    "password": "langchain",
-    "host": "localhost",
-    "port": 5432,
-}
+from src.conf.Configurations import db_config
+from src.utilities.DataBaseUtility import DataBaseUtility
 
 # Corpus (Documents)
-corpus = [
-    "Machine learning is a subset of artificial intelligence.",
-    "Deep learning models are powerful for image recognition.",
-    "Natural language processing helps computers understand human language.",
-    "Artificial intelligence is transforming various industries.",
-    "Data science involves statistics, machine learning, and domain knowledge."
-]
+corpus = DataBaseUtility().extract_doc_content()
 
 # Initialize and Compute TF-IDF
 vectorizer = TfidfVectorizer()
