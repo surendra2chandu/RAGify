@@ -52,5 +52,7 @@ def get_response(query):
 
 if __name__ == "__main__":
 
-    res = get_response(" How does the LCSP integrate sustainment requirements into a system's life cycle?")
+    sample_query = "How does the LCSP integrate sustainment requirements into a system's life cycle?"
+
+    res = get_response(sample_query)
     print(res)
