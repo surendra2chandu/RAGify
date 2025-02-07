@@ -1,7 +1,8 @@
 # import necessary libraries
 import requests
-from src.conf.Configurations import logger, LATE_CHUNKING_URL, TF_IDF_URL, THRESHOLD_FOR_SEMANTIC_RETRIVAL, THRESHOLD_FOR_TF_IDF, SEMANTIC_CONFIGURATION
+from src.conf.Configurations import logger, RETRIEVAL_URL, SEMANTIC_CONFIGURATION
 from src.utilities.OllamaServiceManager import process_ollama_request
+from src.utilities.ChatBotUtilities import get_sematic_similer_documents_text, get_tf_idf_similer_documents_text
 
 
 def get_response(query):
@@ -10,45 +11,31 @@ def get_response(query):
     :param query: The query to be processed
     :return: The response from the service
     """
-    if SEMANTIC_CONFIGURATION == "BOTH":
-        # Initialize the context
-        context = ""
 
-        # Send a post request to the LateChunking service and get the response
-        logger.info(f"Sending a post request to the LateChunking service with query: {query}")
-        late_chunk_response = requests.post(LATE_CHUNKING_URL, params={"query": query})
-        if late_chunk_response.status_code == 200:
+    response  = requests.post(RETRIEVAL_URL, params={"query": query})
+    if response.status_code == 200:
 
-            # Get the response in JSON format
-            response = late_chunk_response.json()
+        # Get the similer documents
+        logger.info("Getting the similer documents...")
+        similer_documents = response.json()
 
-            for i in range(len(response)):
-                if response[i][1] >= THRESHOLD_FOR_SEMANTIC_RETRIVAL:
+        if SEMANTIC_CONFIGURATION == "BOTH":
 
-                    # Append the relevant information to the context
-                    logger.info(f"Appending relevant information to the context")
-                    context += response[i][0] + ". \n"
+            # Get the text from the semantically similer documents and the Tf-Idf similer documents
+            logger.info("Getting the text from the semantically similer documents and the Tf-Idf similer documents...")
+            context = get_sematic_similer_documents_text(similer_documents) + get_tf_idf_similer_documents_text(similer_documents)
+
+        elif SEMANTIC_CONFIGURATION == "Tf_Idf":
+
+            # Get the text from the Tf-Idf similer documents
+            logger.info("Getting the text from the Tf-Idf similer documents...")
+            context = get_tf_idf_similer_documents_text(similer_documents)
 
         else:
-            response = f"Error occurred when processing the request to url {LATE_CHUNKING_URL}"
 
-        # Send a post request to the Tf-Idf service and get the response
-        logger.info(f"Sending a post request to the Tf-Idf service with query: {query}")
-        tf_idf_response = requests.post(TF_IDF_URL, params={"query": query})
-
-        # Check the status code and get the response
-        if tf_idf_response.status_code == 200:
-            # Get the response in JSON
-            response = tf_idf_response.json()
-
-            for i in range(len(response)):
-                if response[i][1] >= THRESHOLD_FOR_TF_IDF:
-
-                    # Append the relevant information to the context
-                    logger.info(f"Appending relevant information to the context")
-                    context += response[i][0] + ". \n"
-        else:
-            response = f"Error occurred when processing the request to url {TF_IDF_URL}"
+            # Get the text from the semantically similer documents
+            logger.info("Getting the text from the semantically similer documents...")
+            context = get_sematic_similer_documents_text(similer_documents)
 
         if context:
             # Process the response with the Ollama model
@@ -57,8 +44,10 @@ def get_response(query):
         else:
             response = "No relevant information found in the database."
 
-        # Return the response
         return response
+
+    else:
+        return "Error occurred when processing the request to url " + RETRIEVAL_URL
 
 
 if __name__ == "__main__":

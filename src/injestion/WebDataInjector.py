@@ -2,7 +2,7 @@
 from src.web_scraping.DataExtractor import DataExtractor
 from src.utilities.LateChunking import LateChunking
 from src.conf.Configurations import logger, DOC_TYPE_FOR_WEB
-from src.utilities.DataBaseUtility import DataBaseUtility
+from src.utilities.DataBaseUtilities import DataBaseUtility
 from src.utilities.GetTokenEmbeddings import GetTokenEmbeddings
 
 

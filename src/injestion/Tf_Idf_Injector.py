@@ -2,7 +2,7 @@
 import psycopg2
 from sklearn.feature_extraction.text import TfidfVectorizer
 from src.conf.Configurations import db_config, logger
-from src.utilities.DataBaseUtility import DataBaseUtility
+from src.utilities.DataBaseUtilities import DataBaseUtility
 
 
 class TfIdfInjector:

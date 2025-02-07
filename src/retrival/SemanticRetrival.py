@@ -1,16 +1,16 @@
 # Importing required libraries
 from src.conf.Configurations import logger
 from src.utilities.GetTokenEmbeddings import GetTokenEmbeddings
-from src.utilities.DataBaseUtility import DataBaseUtility
+from src.utilities.DataBaseUtilities import DataBaseUtility
 
 
-class DataRetrival:
+class SemanticRetrival:
     @staticmethod
-    def retrieve_relevant_text( query):
+    def retrieve_relevant_docs( query):
         """
         This function retrieves relevant text based on the query.
         :param query: The query to search for.
-        :return: The relevant text.
+        :return: List of tuples containing the text chunk and similarity score.
         """
 
         # Tokenize and embed the query
@@ -32,7 +32,7 @@ if __name__ == "__main__":
     sample_query = "Who are the customers impacted by the upcoming satellite change for the AFN TV programming package in the Pacific region?"
 
     # Retrieve relevant text
-    results = DataRetrival().retrieve_relevant_text(sample_query)
+    results = SemanticRetrival().retrieve_relevant_docs(sample_query)
 
     for chunk, similarity in results:
         print(f"Chunk: {chunk}\nSimilarity: {similarity}\n")

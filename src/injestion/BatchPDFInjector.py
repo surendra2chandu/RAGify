@@ -2,12 +2,12 @@
 from src.utilities.PDFDataExtractor import PDFDataExtractor
 from src.utilities.InjectionUtility import InjectionUtility
 from src.conf.Configurations import logger
-from src.utilities.DataBaseUtility import DataBaseUtility
+from src.utilities.DataBaseUtilities import DataBaseUtility
 import os
 from fastapi import HTTPException
 
 
-class PDFDataInjector:
+class BatchPDFInjector:
 
     @staticmethod
     def get_pdf_files(directory_path: str):
@@ -17,19 +17,24 @@ class PDFDataInjector:
         :param directory_path: Path to the directory containing PDF files.
         :return: List of PDF file paths.
         """
+
+        # Check if the directory exists
         if not os.path.isdir(directory_path):
             raise HTTPException(status_code=400, detail=f"Invalid directory: {directory_path}")
 
+        # Get a list of all PDF files in the directory
+        logger.info(f"Getting PDF files in directory: {directory_path}")
         pdf_files = [
             os.path.join(directory_path, file)
             for file in os.listdir(directory_path)
             if file.lower().endswith('.pdf')
         ]
 
+        # Log a warning if no PDF files are found
         if not pdf_files:
-            # to-do
-            raise HTTPException(status_code=404, detail="No PDF files found in the directory.")
+            logger.info(f"No PDF files found in {directory_path}")
 
+        # Return the list of PDF files
         return pdf_files
 
     @staticmethod
@@ -74,10 +79,10 @@ class PDFDataInjector:
                 raise HTTPException(status_code=500, detail=f"An error occurred while processing {file}: {e}")
 
         # Commit and close the database connection
-        logger.info("Committing and closing the database connection...")
-        DataBaseUtility().commit_and_close()
+        logger.info("closing the database connection...")
+        DataBaseUtility().close()
 
 # Run the script
 if __name__ == "__main__":
     pdf_directory = r'C:\Docs'  # Update with your directory path
-    PDFDataInjector().process_files(pdf_directory)
+    BatchPDFInjector().process_files(pdf_directory)

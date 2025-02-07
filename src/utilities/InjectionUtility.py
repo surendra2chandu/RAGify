@@ -2,7 +2,7 @@
 from src.conf.Configurations import logger, DOC_TYPE_FOR_PDF
 from src.utilities.GetTokenEmbeddings import GetTokenEmbeddings
 from src.utilities.LateChunking import LateChunking
-from src.utilities.DataBaseUtility import DataBaseUtility
+from src.utilities.DataBaseUtilities import DataBaseUtility
 
 
 class InjectionUtility :
