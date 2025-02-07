@@ -27,6 +27,7 @@ class PDFDataInjector:
         ]
 
         if not pdf_files:
+            # to-do
             raise HTTPException(status_code=404, detail="No PDF files found in the directory.")
 
         return pdf_files

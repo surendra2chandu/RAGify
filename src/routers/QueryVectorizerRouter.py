@@ -1,6 +1,6 @@
 # Import necessary libraries
 from fastapi import APIRouter
-from src.retrival.Retrival import QueryVectorizer
+from src.retrival.Tf_Idf_Retrival import QueryVectorizer
 
 # Initialize the router
 router = APIRouter(tags=["Similarities"])
