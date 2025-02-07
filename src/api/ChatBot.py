@@ -52,6 +52,5 @@ def get_response(query):
 
 if __name__ == "__main__":
 
-    res = get_response("Who are the customers impacted by the upcoming satellite change for the AFN TV programming package in the Pacific region?")
-
+    res = get_response(" How does the LCSP integrate sustainment requirements into a system's life cycle?")
     print(res)

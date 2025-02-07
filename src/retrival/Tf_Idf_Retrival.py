@@ -1,5 +1,7 @@
 # Import necessary libraries , classes and functions
 import psycopg2
+from sklearn.feature_extraction.text import TfidfVectorizer
+
 from src.conf.Configurations import db_config, NUMBER_OF_MATCHES_FOR_TF_IDF, logger
 from src.injestion.Tf_Idf_Injector import TfIdfInjector
 
@@ -16,6 +18,7 @@ class TfIdfRetrival:
         # Initialize the TF-IDF injector
         logger.info("Initializing the TF-IDF injector.")
         vectorizer = TfIdfInjector().get_vectorizer()
+        #vectorizer = TfidfVectorizer()
 
         # Transform query to TF-IDF vector
         logger.info("Transforming the query to a TF-IDF vector.")
