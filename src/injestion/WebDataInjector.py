@@ -4,13 +4,12 @@ from src.utilities.LateChunking import LateChunking
 from src.conf.Configurations import logger, DOC_TYPE_FOR_WEB
 from src.utilities.DataBaseUtility import DataBaseUtility
 from src.utilities.GetTokenEmbeddings import GetTokenEmbeddings
-import os
 
 
 class WebDataInjector:
 
-    # Main function to process PDF and store chunks
-    def process_data_and_store(self, url):
+    @staticmethod
+    def process_data_and_store( url):
         """
         This function extracts data from the specified URL and stores the chunks in the database.
         :param url:

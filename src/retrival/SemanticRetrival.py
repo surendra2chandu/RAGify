@@ -1,12 +1,12 @@
 # Importing required libraries
-from src.conf.Configurations import logger, NUMBER_OF_MATCHES
+from src.conf.Configurations import logger
 from src.utilities.GetTokenEmbeddings import GetTokenEmbeddings
 from src.utilities.DataBaseUtility import DataBaseUtility
 
 
 class DataRetrival:
-
-    def retrieve_relevant_text(self, query):
+    @staticmethod
+    def retrieve_relevant_text( query):
         """
         This function retrieves relevant text based on the query.
         :param query: The query to search for.

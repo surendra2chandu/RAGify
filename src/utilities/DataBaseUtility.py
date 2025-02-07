@@ -58,15 +58,6 @@ class DataBaseUtility:
                 (doc_name, doc_type,  chunk_text, chunk_embedding_list),
             )
 
-        # Commit the changes
-        logger.info("Committing the changes...")
-        self.conn.commit()
-
-        # Close the cursor and connection
-        logger.info("Closing the cursor and connection...")
-        self.cursor.close()
-        self.conn.close()
-
 
     def fetch_similar_text(self, query_embedding):
         """
@@ -113,7 +104,7 @@ class DataBaseUtility:
             """
             SELECT chunk
             FROM document_chunks
-            WHERE doc_type = doc_type;
+            WHERE doc_type = 'D';
             """
         )
 
@@ -141,5 +132,19 @@ class DataBaseUtility:
         """
         self.cursor.execute("SELECT 1 FROM document_chunks WHERE doc_name = %s", (file_name,))
         return self.cursor.fetchone() is not None
+
+    def commit_and_close(self):
+        """
+        This function commits the changes and closes the cursor and connection.
+        :return: None
+        """
+        # Commit the changes
+        logger.info("Committing the changes...")
+        self.conn.commit()
+
+        # Close the cursor and connection
+        logger.info("Closing the cursor and connection...")
+        self.cursor.close()
+        self.conn.close()
 
 
