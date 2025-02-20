@@ -33,7 +33,7 @@ class TfIdfRetrival:
         logger.info("Querying the most similar documents using SQL cosine similarity.")
         cursor.execute("""
             SELECT document_text, 1 - (tfidf_vector <=> %s::vector) AS similarity
-            FROM documents
+            FROM tf_idf_documents
             ORDER BY similarity DESC  -- Lower distance means higher similarity
             LIMIT %s
         """, (query_vec.tolist(), NUMBER_OF_MATCHES_FOR_TF_IDF))

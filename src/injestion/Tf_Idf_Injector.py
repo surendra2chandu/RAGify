@@ -37,12 +37,12 @@ class TfIdfInjector:
 
         # Drop the table if it exists
         logger.info("Dropping the table if it exists...")
-        cursor.execute("DROP TABLE IF EXISTS documents;")
+        cursor.execute("DROP TABLE IF EXISTS tf_idf_documents;")
 
         # Create the table
         logger.info("Creating the table...")
         cursor.execute("""
-            CREATE TABLE documents (
+            CREATE TABLE tf_idf_documents (
                 id SERIAL PRIMARY KEY,
                 document_text TEXT,
                 tfidf_vector vector
@@ -53,7 +53,7 @@ class TfIdfInjector:
         logger.info("Inserting documents and their vectors...")
         for doc, vec in zip(self.corpus, self.tfidf_matrix):
             cursor.execute(
-                "INSERT INTO documents (document_text, tfidf_vector) VALUES (%s, %s::vector)",
+                "INSERT INTO tf_idf_documents (document_text, tfidf_vector) VALUES (%s, %s::vector)",
                 (doc, vec.tolist())  # Convert NumPy array to list for PostgreSQL
             )
 
