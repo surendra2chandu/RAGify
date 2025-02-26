@@ -2,7 +2,7 @@
 import pandas as pd
 from src.conf.Configurations import logger
 
-class DataExtractorFromCSV:
+class CSVDataExtractor:
 
     @staticmethod
     def extract_data(csv_file_path: str) -> str:
@@ -24,7 +24,7 @@ class DataExtractorFromCSV:
         return output_text
 
 if __name__ == "__main__":
-    print(DataExtractorFromCSV.extract_data("sample_data.csv"))
+    print(CSVDataExtractor.extract_data("sample_data.csv"))
 
 
 
