@@ -8,6 +8,10 @@ from fastapi import HTTPException
 
 
 class BatchPDFInjector:
+    """
+    A class to handle the batch processing of PDF files for data injection.
+    This class provides methods to extract text from PDF files,
+    """
 
     @staticmethod
     def get_pdf_files(directory_path: str):
@@ -41,6 +45,7 @@ class BatchPDFInjector:
     def process_pdf_and_store( file,):
         """
         Extracts text from the PDF and stores the processed chunks in the database.
+
         :param file: Path to the PDF file.
         :return: None
         """
@@ -60,6 +65,7 @@ class BatchPDFInjector:
     def process_files(self, directory_path):
         """
         Processes all PDF files in the given directory.
+
         :param directory_path: Path to the directory containing PDF files.
         :return: None
         """

@@ -1,10 +1,11 @@
 #import necessary libraries
 import requests
-from src.conf.Configurations import logger, LATE_CHUNKING_URL, THRESHOLD
+from src.conf.Configurations import logger, LATE_CHUNKING_URL, THRESHOLD_FOR_TF_IDF
 
 def get_response_from_late_chunking(query):
     """
     Function to get response from the LateChunking service
+
     :param query: The query to be processed
     :return: The response from the service
     """
@@ -21,7 +22,7 @@ def get_response_from_late_chunking(query):
         response = late_chunk_response.json()
 
         for i in range(len(response)):
-            if response[i][1] >= THRESHOLD:
+            if response[i][1] >= THRESHOLD_FOR_TF_IDF:
                 # Append the relevant information to the context
                 logger.info(f"Appending relevant information to the context")
                 context += response[i][0] + ". \n"

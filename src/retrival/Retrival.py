@@ -4,11 +4,18 @@ from src.retrival.Tf_Idf_Retrival import TfIdfRetrival
 from fastapi import HTTPException
 from src.conf.Configurations import logger
 
+
 class Retrival:
+    """
+    This class is responsible for retrieving similar documents based on a given query.
+    It uses both semantic retrieval and TF-IDF retrieval methods to find relevant documents.
+    The class contains a static method `get_similer_documents` that takes a query string as input
+    """
     @staticmethod
     def get_similer_documents( query: str):
         """
         Get similer documents for the given query using semantic retrival and tf-idf retrival
+
         :param query: The query for which to find similer documents
         :return: The similer documents
         """

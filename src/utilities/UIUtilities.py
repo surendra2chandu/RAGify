@@ -2,12 +2,18 @@ import streamlit as st
 import requests
 
 class ChatBotUtilities:
+    """
+    This class contains utility methods for the chatbot application.
+
+    """
 
     @staticmethod
     def show_chat_history(self):
         """
         This method displays the chat history.
-        :return:
+
+        :param self: The object of the class
+        :return: None
         """
 
         # Display chat history section
@@ -30,6 +36,7 @@ class ChatBotUtilities:
     def handle_query(self, query, documents):
         """
         This method processes the query and returns the response.
+
         :param self: The object of the class
         :param query: The query entered by the user
         :param documents: The list of documents to compare the query with
@@ -60,6 +67,7 @@ class ChatBotUtilities:
     def retrive_chunks(self, query):
         """
         This method retrieves the chunks from the database.
+
         :param query: The query to retrieve the chunks.
         :return: The chunks and similarity scores.
         """

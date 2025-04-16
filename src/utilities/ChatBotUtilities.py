@@ -3,6 +3,7 @@ from src.conf.Configurations import THRESHOLD_FOR_SEMANTIC_RETRIVAL, THRESHOLD_F
 def get_sematic_similer_documents_text(similer_documents):
     """
     Function to get the text from the semantically similer documents
+
     :param similer_documents: The similer documents
     :return: The text from the similer documents
     """
@@ -22,6 +23,7 @@ def get_sematic_similer_documents_text(similer_documents):
 def get_tf_idf_similer_documents_text(similer_documents):
     """
     Function to get the text from the Tf-Idf similer documents
+
     :param similer_documents: The similer documents
     :return: The text from the similer documents
     """

@@ -5,6 +5,11 @@ import torch
 
 
 class GetTokenEmbeddings:
+    """
+    This class is responsible for tokenizing text and generating embeddings.
+    It uses the Hugging Face Transformers library to load the model and tokenizer.
+    The model and tokenizer are loaded from the specified model path.
+    """
     def __init__(self):
         """
         This function initializes the GetTokenEmbeddings class.
@@ -21,6 +26,7 @@ class GetTokenEmbeddings:
     def tokenize_and_embed(self, text):
         """
         Tokenizes the text and generates embeddings, handling long texts by splitting them.
+
         :param text: The text to tokenize.
         :return: The tokens and embeddings.
         """

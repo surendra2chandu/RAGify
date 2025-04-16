@@ -11,6 +11,7 @@ class TfIdfRetrival:
     def retrieve_relevant_docs(query: str):
         """
         Extracts documents similar to the query using TF-IDF.
+
         :param query: The query to search for.
         :return: The list of tuples containing the document text and similarity score.
         """
@@ -52,7 +53,7 @@ class TfIdfRetrival:
 
 # Run retrieval
 if __name__ == "__main__":
-    sample_query = "air force life cycle management center standard process for life cycle sustainment plans lcsp process owner aflcmclg lz date 15 october 2020 version 7 0 1 record of changes record of changes version effective date summary 10 1 apr 2016 basic document approved by standard process sp board on 24 mar 16 20 1 jul 2016 updated to reflect afmccc delegation of sustainment command representative requirement for acat ii and below programs to center commanders 30 30 jul 2017 updated to reflect osd sample outline version 20 and other aflcmc level process improvements 40 1 oct 2017 administrative update to reflect updated afi 6310120 101 dtd 9 may 2017 reference changes"
+    sample_query = "to be conclusive an officer of that rank is not having due regard to the public service available notes 1 for definition of officer and courtmartial see s4 xxiii and xvi afa 2 the expression of the convening officers opinion justifying a departure from the general rules should be inserted in the convening order see form f2a sixth schedule to afr 3 see notes 4 and 5 to r 46 afr 4 this rule does not apply to sgcm see rl42 afr48 units of members of courtmartial a general or district courtmartial shall not be composed exclusively of officers of the same unit unless the convening officer states in the order convening the court that in his opinion other officers are not having due regard to the public service available and in no case shall it consist exclusively of officers belonging to the same unit as the accused notes 1 for definition of courtmartial officer and unit see s xvi xxiii and xxviii afa 2 the expression of the convening officers opinion justiying a departure from the general rule should be inserted in the convening order see form f 2 a sixth schedule to afr 3 see notes 4 and 5 to r46 afr 4 this rule does not apply to sgcm"
     top_docs = TfIdfRetrival().retrieve_relevant_docs(sample_query)
 
     print(top_docs)

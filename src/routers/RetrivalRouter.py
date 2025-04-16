@@ -10,6 +10,7 @@ router = APIRouter(tags=["retrival"])
 async def get_similer_documents(query: str):
     """
     Function to get similer documents for the given query
+
     :param query: The query for which to find similer documents
     :return: The similer documents
     """

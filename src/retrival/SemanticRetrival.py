@@ -9,6 +9,7 @@ class SemanticRetrival:
     def retrieve_relevant_docs( query):
         """
         This function retrieves relevant text based on the query.
+
         :param query: The query to search for.
         :return: List of tuples containing the text chunk and similarity score.
         """

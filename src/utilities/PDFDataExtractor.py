@@ -1,5 +1,5 @@
 # Import the necessary packages
-from src import logger
+from src.conf.Configurations import logger
 from PyPDF2 import PdfReader
 import re
 import fitz
@@ -7,10 +7,13 @@ from fastapi import HTTPException
 
 class PDFDataExtractor:
 
+
+
     @staticmethod
     def extract_text_from_pdf(pdf_path):
         """
         Extract text from a PDF file.
+
         :param pdf_path: Path to the PDF file.
         :return: Extracted text from the PDF file.
         """
@@ -43,6 +46,7 @@ class PDFDataExtractor:
     def extract_text(pdf_path):
         """
         Extract text from a PDF file.
+
         :param pdf_path: Path to the PDF file.
         :return: Extracted text from the PDF file.
         """

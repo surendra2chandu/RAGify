@@ -4,6 +4,11 @@ from src.conf.Configurations import logger, model_path
 
 
 class EmbeddingUtility:
+    """
+    This class is responsible for loading the model and tokenizer.
+    It uses the Hugging Face Transformers library to load the model and tokenizer.
+    The model and tokenizer are loaded from the specified model path.
+    """
     def __init__(self):
         """
         This function initializes the LateChunking class with the specified model path.
@@ -24,6 +29,7 @@ class EmbeddingUtility:
     def get_tokenizer(self):
         """
         This function returns the tokenizer.
+
         :return: Tokenizer
         """
 
@@ -33,6 +39,7 @@ class EmbeddingUtility:
     def get_model(self):
         """
         This function returns the model.
+
         :return: Model
         """
 

@@ -134,8 +134,12 @@ class DataBaseUtility:
         :param file_name: Name of the document to check.
         :return: True if document exists, otherwise False.
         """
-        self.cursor.execute("SELECT 1 FROM document_chunks WHERE doc_name = %s", (file_name,))
-        return self.cursor.fetchone() is not None
+        try:
+            self.cursor.execute("SELECT 1 FROM document_chunks WHERE doc_name = %s", (file_name,))
+            return self.cursor.fetchone() is not None
+        except Exception as e:
+            return
+
 
 
     def close(self):

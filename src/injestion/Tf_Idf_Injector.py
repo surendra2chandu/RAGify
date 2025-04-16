@@ -6,14 +6,22 @@ from src.utilities.DataBaseUtilities import DataBaseUtility
 
 
 class TfIdfInjector:
+    """
+    A class to handle the TF-IDF injection process.
+    This class provides methods to compute TF-IDF vectors from documents and store them in a postgres sql database.
+    """
     def __init__(self):
         """
         Initialize the TF-IDF injector.
+
         """
 
         # Fetch document content from database
         logger.info("Fetching document content...")
         self.corpus = DataBaseUtility().extract_doc_content()
+
+        # set the corpus to a smaller size for testing
+        self.corpus = self.corpus[:1300]
 
         # Compute TF-IDF
         logger.info("Computing TF-IDF...")
@@ -22,11 +30,13 @@ class TfIdfInjector:
         # Fit the vectorizer
         logger.info("Fitting the vectorizer...")
         self.tfidf_matrix = self.vectorizer.fit_transform(self.corpus).toarray()
+        print(self.tfidf_matrix)
 
 
     def store_tfidf_data(self):
         """
         Store the TF-IDF data in the database.
+
         :return: None
         """
 
@@ -66,6 +76,7 @@ class TfIdfInjector:
     def get_vectorizer(self):
         """
         Get the vectorizer object.
+
         :return: The vectorizer object.
         """
 

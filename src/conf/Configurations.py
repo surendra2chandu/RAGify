@@ -9,7 +9,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger()
 
 # Define the chunk size
-CHUNK_SIZE = 128
+CHUNK_SIZE = 256
 
 # Define the document type for PDF
 DOC_TYPE_FOR_PDF  = "D"
@@ -48,13 +48,13 @@ OLLAMA_URL = "http://localhost:8001/llm/ollama/question-answering/"
 OLLAMA_SUMMARIZATION_URL = "http://localhost:8001/llm/ollama/summarize/"
 
 # Give the model path for MiniLM-L6-v2
-model_path = r"C:\llm\MiniLM-L6-v2"
+model_path = r"D:\llm\MiniLM-L6-v2"
 
 # Define the database configuration
 db_config = {
-        "dbname": "langchain",
-        "user": "langchain",
-        "password": "langchain",
+        "dbname": "postgres",
+        "user": "postgres",
+        "password": "secret",
         "host": "localhost",
-        "port": 5432,
+        "port": 5433,
     }

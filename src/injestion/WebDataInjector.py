@@ -7,12 +7,18 @@ from src.utilities.GetTokenEmbeddings import GetTokenEmbeddings
 
 
 class WebDataInjector:
+    """
+    A class to handle the web data injection process.
+    This class provides methods to extract data from a specified URL,
+    process the data, and store the processed chunks in a database.
+    """
 
     @staticmethod
     def process_data_and_store( url):
         """
         This function extracts data from the specified URL and stores the chunks in the database.
-        :param url:
+
+        :param url: The URL of the website to scrape.
         :return: None
         """
 

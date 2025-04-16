@@ -6,11 +6,17 @@ from src.utilities.DataBaseUtilities import DataBaseUtility
 
 
 class InjectionUtility :
+    """
+    This class is responsible for injecting text into the database.
+    It uses the GetTokenEmbeddings class to tokenize and embed the text,
+    and the LateChunking class to perform late chunking.
+    """
 
     @staticmethod
     def process_text_pipeline(text, file_name):
         """
         Process the text pipeline
+        This function performs the following steps:
         :param text: The text to process
         :param file_name: The name of the file
         :return: None

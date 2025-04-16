@@ -7,11 +7,17 @@ import os
 
 
 class PDFDataInjector:
+    """
+    A class to handle the processing of PDF files for data injection.
+    This class provides methods to extract text from PDF files,
+    process the text, and store the processed chunks in the database.
+    """
 
     @staticmethod
     def process_pdf_and_store( pdf_path):
         """
         This function extracts text from the specified PDF and stores the chunks in the database.
+
         :param pdf_path: The path to the PDF file.
         :return: None
         """
@@ -39,7 +45,7 @@ class PDFDataInjector:
 if __name__ == "__main__":
 
     # Sample PDF path
-    sample_pdf_path = r'C:\Docs\sample_doc.pdf'
+    sample_pdf_path = r'C:\Docs\6000pages.pdf'
 
     # Process the PDF and store the chunks in the database
     PDFDataInjector().process_pdf_and_store(sample_pdf_path)

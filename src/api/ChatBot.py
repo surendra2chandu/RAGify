@@ -8,6 +8,7 @@ from src.utilities.ChatBotUtilities import get_sematic_similer_documents_text, g
 def get_response(query):
     """
     Function to get response from the LateChunking service
+
     :param query: The query to be processed
     :return: The response from the service
     """

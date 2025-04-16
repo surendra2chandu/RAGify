@@ -9,6 +9,7 @@ class DataExtractor:
     def extract_data(self, url):
         """
         This function extracts data from the specified URL.
+
         :param url: The URL of the website to extract data from.
         :return: A dictionary containing the extracted data and the article titles as keys.
         """

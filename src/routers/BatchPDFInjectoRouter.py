@@ -10,6 +10,7 @@ router = APIRouter(tags=["Injection"])
 async def inject_batch_pdf_data(path: str):
     """
     Function to inject data from a batch of PDF files into the database
+
     :param path: The path to the directory containing PDF files
     :return: The response from the service
     """

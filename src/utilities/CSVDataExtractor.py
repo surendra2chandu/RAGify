@@ -3,11 +3,17 @@ import pandas as pd
 from src.conf.Configurations import logger
 
 class CSVDataExtractor:
+    """
+    This class is responsible for extracting data from a CSV file.
+    It reads the CSV file, processes the data, and returns the complete text.
+    The CSV file is expected to have a specific format with 'heading' and 'intro' columns.
+    """
 
     @staticmethod
     def extract_data(csv_file_path: str) -> str:
         """
         Extracts data from a CSV file and returns complete text as a string.
+
         :param csv_file_path: The path to the CSV file.
         :return: The complete text extracted from the CSV file.
         """
@@ -24,7 +30,7 @@ class CSVDataExtractor:
         return output_text
 
 if __name__ == "__main__":
-    print(CSVDataExtractor.extract_data("sample_data.csv"))
+    print(CSVDataExtractor.extract_data(r"D:\CSV\sample_data.csv"))
 
 
 

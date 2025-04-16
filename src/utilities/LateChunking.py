@@ -4,6 +4,11 @@ from src.utilities.EmbeddingUtility import EmbeddingUtility
 
 
 class LateChunking:
+    """
+    This class is responsible for chunking the tokens and embeddings.
+    It takes the tokens and embeddings as input and returns the chunks.
+    The chunk size is defined in the configurations.
+    """
     def __init__(self):
         """
         This function initializes the LateChunking class.
@@ -16,6 +21,7 @@ class LateChunking:
     def late_chunk(self, tokens, embeddings):
         """
         This function chunks the tokens and embeddings.
+
         :param tokens: The tokens.
         :param embeddings: The embeddings.
         :return:
